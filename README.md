@@ -1,142 +1,153 @@
+# Brazilian E-Commerce Analytics
 
-# Data Science Coding Test: Brazilian E-Commerce Analytics
+Data science assessment project analyzing the Olist Brazilian e-commerce marketplace dataset. The project computes core business metrics, forecasts monthly order demand for the June-August 2018 holdout period, and uses OpenRouter to generate data-grounded business recommendations.
 
-You've been hired as a data scientist at a Brazilian e-commerce marketplace. Leadership wants to understand business performance, forecast demand for next quarter, and get actionable recommendations backed by data.
+## Deliverables
 
-You have access to ~100K real orders from 2016–2018. Your job: explore the data, build a demand forecast, and use an LLM to synthesize your findings into business recommendations.
+- `src/analysis.py`: five required analysis functions
+- `src/notebook.ipynb`: executed EDA notebook with charts and explanations
+- `REPORT.md`: final written report
+- `REPORT.pdf`: PDF copy of the final report
+- `outputs/analysis_summary.json`: structured final results
+- `outputs/recommendations.json`: OpenRouter recommendation output
+- `outputs/monthly_demand.csv`: monthly order demand
+- `outputs/revenue_by_month.csv`: monthly revenue
 
-## Time Limit
+## Key Results
 
-**2–3 hours.**
+| Metric | Value |
+|---|---:|
+| Total orders | 99,441 |
+| Total revenue | BRL 16,008,872.12 |
+| Average order value | BRL 160.99 |
+| Forecast RMSE | 484.72 orders |
+| Forecast MAE | 447.00 orders |
+| LLM model used | baidu/cobuddy-20260430:free |
 
-## Getting Started
+Forecasted order demand:
 
-```bash
-# 1. Set up Python environment
-cd data-science
-python -m venv venv
-source venv/bin/activate    # Windows: venv\Scripts\activate
-pip install -r requirements.txt
+| Month | Predicted Orders | Actual Orders |
+|---|---:|---:|
+| 2018-06 | 5,456 | 6,167 |
+| 2018-07 | 5,956 | 6,292 |
+| 2018-08 | 6,218 | 6,512 |
 
-# 2. Download the dataset (requires Kaggle CLI)
-pip install kaggle
-python data/download_data.py
+## Repository Structure
 
-# 3. Set up OpenRouter API key (for Part 3)
-cp .env.example .env
-# Edit .env and add your API key from https://openrouter.ai/
-
-# 4. Verify setup
-pytest tests/test_smoke.py -v   # will fail until you implement the functions
-```
-
-Don't have a Kaggle account? Download the dataset manually from:
-https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data
-
-Extract the CSVs into the `data/` folder.
-
----
-
-## Your Tasks
-
-### Part 1: EDA & Business Overview (~30 min)
-
-**File to implement:** `src/analysis.py` → `get_business_overview()`
-
-Explore the dataset and compute key business metrics. Use `src/notebook.ipynb` to show your exploratory analysis — charts, observations, data quality notes.
-
-See [SCHEMA.md](SCHEMA.md) for the dataset documentation.
-
-| Function | Returns |
-|----------|---------|
-| `get_business_overview()` | `dict` with `total_revenue`, `total_orders`, `avg_order_value`, `revenue_by_month` (DataFrame) |
-
----
-
-### Part 2: Demand Forecasting (~1 hr)
-
-**File to implement:** `src/analysis.py` → `prepare_monthly_demand()`, `forecast_demand()`
-
-Build a model to predict monthly order volume. The training period ends on **May 31, 2018** — your model must forecast June, July, and August 2018 (the holdout period).
-
-You may use any forecasting method (ARIMA, SARIMA, Holt-Winters, Prophet, XGBoost, etc.). Explain your choice in the notebook.
-
-| Function | Returns |
-|----------|---------|
-| `prepare_monthly_demand()` | DataFrame with `month`, `order_count` |
-| `forecast_demand(train, horizon)` | `dict` with `model_name`, `predictions`, `rmse`, `mae` |
-
----
-
-### Part 3: LLM-Assisted Recommendations (~45 min)
-
-**File to implement:** `src/analysis.py` → `build_analysis_context()`, `generate_recommendations()`
-
-Use a **free LLM via OpenRouter** to generate business recommendations based on your analysis.
-
-1. Create a free account at [openrouter.ai](https://openrouter.ai/)
-2. Get an API key and add it to your `.env` file
-3. Use any free model (look for models with `:free` suffix)
-4. The API uses the OpenAI-compatible format: `POST https://openrouter.ai/api/v1/chat/completions`
-
-| Function | Returns |
-|----------|---------|
-| `build_analysis_context()` | `str` — structured summary of your findings |
-| `generate_recommendations()` | `dict` with `model_used`, `prompt`, `recommendations` (list of 3–5 dicts with `action`, `rationale`, `priority`) |
-
----
-
-## What's Already Provided (do not modify)
-
-- `src/data_loader.py` — helpers to load all 9 CSV tables
-- `src/holdout_config.py` — train/test split dates
-- `tests/test_smoke.py` — type and shape checks for your functions
-- `SCHEMA.md` — dataset documentation with ERD and column descriptions
-
----
-
-## Evaluation Criteria
-
-| Area | What We Look For |
-|------|-----------------|
-| **Correctness** | Functions return accurate results matching the specified contracts |
-| **Reasoning** | Insights are specific, data-driven, and reference actual values |
-| **Forecasting** | Sound methodology, justified model choice, honest performance evaluation |
-| **LLM Usage** | Well-structured prompt, relevant recommendations, clean output parsing |
-| **Communication** | Clear notebook with explained reasoning and informative visualizations |
-
-**Bonus (not required):** multiple model comparison, statistical tests, geographic analysis, deeper business reasoning.
-
----
-
-## Self-Check
-
-Run the smoke tests before submitting to make sure your functions have the right structure:
-
-```bash
-cd data-science
-pytest tests/test_smoke.py -v
-```
-
----
-
-## Project Structure
-
-```
-data-science/
-├── README.md               ← You are here
-├── SCHEMA.md               ← Dataset docs (read this!)
-├── .env.example            ← Template for API key
-├── requirements.txt        ← Python dependencies
-├── data/
-│   └── download_data.py    ← Downloads Olist CSVs
+```text
+.
+├── README.md
+├── REPORT.md
+├── REPORT.pdf
+├── SCHEMA.md
+├── requirements.txt
+├── outputs/
+│   ├── analysis_context.txt
+│   ├── analysis_summary.json
+│   ├── monthly_demand.csv
+│   ├── recommendations.json
+│   └── revenue_by_month.csv
 ├── src/
-│   ├── data_loader.py      ← Data loading helpers (provided)
-│   ├── holdout_config.py   ← Train/test split config (provided)
-│   ├── analysis.py         ← TODO: implement 5 functions
-│   └── notebook.ipynb      ← TODO: your EDA and explanations
+│   ├── analysis.py
+│   ├── data_loader.py
+│   ├── holdout_config.py
+│   └── notebook.ipynb
 └── tests/
-    └── test_smoke.py       ← Smoke tests (provided)
+    └── test_smoke.py
 ```
 
-Good luck!
+The raw Olist CSV files are intentionally ignored by git. Download them into `data/` before rerunning the analysis.
+
+## Setup
+
+Create a virtual environment and install dependencies:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+Create a local `.env` from the template:
+
+```bash
+cp .env.example .env
+```
+
+Then add your OpenRouter key:
+
+```env
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+OPENROUTER_MODEL=baidu/cobuddy:free
+```
+
+`.env` is ignored by git and should not be published.
+
+## Download Data
+
+The dataset can be downloaded directly from Kaggle's public dataset endpoint:
+
+```bash
+mkdir -p data
+curl -L --fail -o data/olist_brazilian_ecommerce.zip https://www.kaggle.com/api/v1/datasets/download/olistbr/brazilian-ecommerce
+unzip -o data/olist_brazilian_ecommerce.zip -d data
+```
+
+Expected files include:
+
+- `data/olist_orders_dataset.csv`
+- `data/olist_order_items_dataset.csv`
+- `data/olist_order_payments_dataset.csv`
+- `data/olist_order_reviews_dataset.csv`
+- `data/olist_products_dataset.csv`
+- `data/olist_customers_dataset.csv`
+- `data/olist_sellers_dataset.csv`
+- `data/olist_geolocation_dataset.csv`
+- `data/product_category_name_translation.csv`
+
+## Run
+
+Run smoke tests:
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+Execute the notebook:
+
+```bash
+.venv/bin/jupyter nbconvert --execute --to notebook --inplace src/notebook.ipynb --ExecutePreprocessor.timeout=240
+```
+
+Run the analysis functions directly:
+
+```bash
+.venv/bin/python - <<'PY'
+from src.analysis import get_business_overview, prepare_monthly_demand, forecast_demand, generate_recommendations
+from src.holdout_config import FORECAST_HORIZON, TRAIN_END_DATE
+
+overview = get_business_overview()
+monthly = prepare_monthly_demand()
+train = monthly[monthly["month"] <= TRAIN_END_DATE.to_period("M").to_timestamp()]
+forecast = forecast_demand(train, horizon=FORECAST_HORIZON)
+recommendations = generate_recommendations()
+
+print(overview["total_orders"], overview["total_revenue"], overview["avg_order_value"])
+print(forecast)
+print(recommendations["model_used"])
+PY
+```
+
+## OpenRouter Notes
+
+This project uses OpenRouter's OpenAI-compatible chat completions API:
+
+```text
+POST https://openrouter.ai/api/v1/chat/completions
+```
+
+The default model is `baidu/cobuddy:free`, which worked during the final run from this environment. Free OpenRouter models can be intermittent because of rate limits, upstream provider availability, or regional restrictions. If a request fails or returns malformed JSON, `generate_recommendations()` returns deterministic fallback recommendations and marks `model_used` with `_local_fallback`.
+
+## Final Report
+
+See `REPORT.md` or `REPORT.pdf` for the complete project write-up.
+

@@ -200,4 +200,3 @@ Primary artifacts:
 - `outputs/recommendations.json`: LLM recommendation output
 - `outputs/monthly_demand.csv`: monthly order demand
 - `outputs/revenue_by_month.csv`: monthly revenue
-
