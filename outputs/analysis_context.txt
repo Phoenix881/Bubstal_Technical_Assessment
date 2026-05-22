@@ -1,0 +1,55 @@
+Brazilian e-commerce marketplace analysis context
+
+Business overview:
+- Total orders: 99,441
+- Total revenue: BRL 16,008,872.12
+- Average order value: BRL 160.99
+- Date range: 2016-09-01 to 2018-10-01
+- Forecast holdout period: 2018-06-01 to 2018-08-31
+
+Recent complete monthly revenue through the holdout period:
+- 2018-06: BRL 1,023,880.50
+- 2018-07: BRL 1,066,540.75
+- 2018-08: BRL 1,022,425.32
+
+Demand forecast for the next quarter:
+- 2018-06: 5,456 orders
+- 2018-07: 5,956 orders
+- 2018-08: 6,218 orders
+- Holdout RMSE: 484.72; MAE: 447.0
+
+Top revenue categories:
+- health_beauty: BRL 1,441,248.07 across 8,836 orders
+- watches_gifts: BRL 1,305,541.61 across 5,624 orders
+- bed_bath_table: BRL 1,241,681.72 across 9,417 orders
+- sports_leisure: BRL 1,156,656.48 across 7,720 orders
+- computers_accessories: BRL 1,059,272.40 across 6,689 orders
+
+Payment mix by value:
+- credit_card: BRL 12,542,084.19 across 76,505 orders
+- boleto: BRL 2,869,361.27 across 19,784 orders
+- voucher: BRL 379,436.87 across 3,866 orders
+- debit_card: BRL 217,989.79 across 1,528 orders
+- not_defined: BRL 0.00 across 3 orders
+
+Customer satisfaction:
+- Reviews: 98,410
+- Average review score: 4.09
+- Share of scores 1-2: 14.7%
+
+Delivery performance:
+- Delivered orders: 96,476
+- Average delivery time: 12.56 days
+- Late delivery share: 8.1%
+
+Largest customer states by orders:
+- SP: 41,746 orders
+- RJ: 12,852 orders
+- MG: 11,635 orders
+- RS: 5,466 orders
+- PR: 5,045 orders
+
+Recommendation requirements:
+- Return 3 to 5 actions.
+- Tie every action to the numbers above.
+- Include rationale and priority.

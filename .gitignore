@@ -1,0 +1,11 @@
+.env
+.DS_Store
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+venv/
+.venv/
+data/*.csv
+data/*.zip
+data/**/*.csv
+data/**/*.zip
