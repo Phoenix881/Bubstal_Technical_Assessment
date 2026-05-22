@@ -1,5 +1,9 @@
 # Brazilian E-Commerce Analytics Report
 
+## GitHub Repository
+
+https://github.com/Phoenix881/Bubstal_Technical_Assessment
+
 ## Executive Summary
 
 This project analyzes the Olist Brazilian e-commerce marketplace dataset, covering approximately 100K orders from 2016 to 2018. The analysis focuses on business performance, monthly demand forecasting for the June-August 2018 holdout period, and LLM-assisted recommendations through OpenRouter.
